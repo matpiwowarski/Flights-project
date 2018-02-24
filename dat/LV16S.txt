@@ -1,0 +1,11 @@
+
+ symbol lotu:    LV16S
+ lotnisko:       Liverpool
+ data lotu:      2018-09-11
+
+ lista pasazerow: 
+  1 Salah
+  5 Glatki
+ 11 Nowakowski
+
+ liczba rezerwacji: 3

@@ -1,0 +1,6 @@
+﻿  przelaczniki.cpp
+  loty.cpp
+  Generowanie kodu...
+c:\users\mateusz\documents\ppk\mateusz-piwowarski-gr07-repo\projekt-02\loty\loty\przelaczniki.cpp(160): warning C4715: "Sprawdzplik”: niewszystkie ścieżki kodu zwracają wartość
+  loty.vcxproj -> C:\Users\Mateusz\Documents\PPK\Mateusz-Piwowarski-gr07-repo\projekt-02\loty\Debug\loty.exe
+  loty.vcxproj -> C:\Users\Mateusz\Documents\PPK\Mateusz-Piwowarski-gr07-repo\projekt-02\loty\Debug\loty.pdb (Partial PDB)

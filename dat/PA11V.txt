@@ -1,0 +1,9 @@
+
+ symbol lotu:    PA11V
+ lotnisko:       Paris
+ data lotu:      2014-05-22
+
+ lista pasazerow: 
+ 10 Jonson
+
+ liczba rezerwacji: 1

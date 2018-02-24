@@ -1,0 +1,468 @@
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage[utf8]{inputenc}                                      
+\usepackage[OT4]{fontenc}      
+%\usepackage[T1]{fontenc}                            
+\usepackage[polish]{babel}                           
+\selectlanguage{polish}
+\usepackage{indentfirst} 
+\usepackage[dvips]{graphicx}
+\usepackage{tabularx}
+\usepackage{color}
+\usepackage{hyperref} 
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{ifpdf}
+\usepackage{mathtext} % polskie znaki w trybie matematycznym
+%\makeindex  % utworzenie skorowidza (w dokumencie pdf)
+\usepackage{lmodern}
+%\usepackage[osf]{libertine}
+\usepackage{filecontents}
+
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+
+\newcounter{nextYear}
+\setcounter{nextYear}{\the\year}
+\stepcounter{nextYear}
+
+% rozszerzenie nieco strony
+%\setlength{\topmargin}{-1cm} \setlength{\textheight}{24.5cm}
+%\setlength{\textwidth}{17cm} \addtolength{\hoffset}{-1.5cm}
+%\setlength{\parindent}{0.5cm} \setlength{\footskip}{2cm}
+%\linespread{1.2} % odstep pomiedzy wierszami
+
+\ifpdf
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
+
+
+\newcommand{\tl}[1]{\textbf{#1}} 
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{} % usuwanie bie¿¹cych ustawieñ
+\fancyhead[LE,RO]{\small\bfseries\thepage}
+\fancyhead[LO]{\small\bfseries\rightmark}
+\fancyhead[RE]{\small\bfseries\leftmark}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{0.5pt} % pionowy odstêp na kreskê
+\fancypagestyle{plain}{%
+\fancyhead{} % usuñ p. górne na stronach pozbawionych numeracji
+\renewcommand{\headrulewidth}{0pt} % pozioma kreska
+}
+
+% ustawienia listingu programow
+%\lstset{	language=C++, 
+%        	numbers=left, 
+%        	numberstyle=\tiny, 
+%        	stepnumber=1, 
+%        	numbersep=5pt,
+%		  	stringstyle=\ttfamily,
+%			showstringspaces=false,
+% 			tabsize=4
+%		}
+
+\lstset{%
+language=C++,%
+commentstyle=\textit,%
+identifierstyle=\textsf,%
+keywordstyle=\sffamily\bfseries, %
+%captionpos=b,%
+tabsize=3,%
+frame=lines,%
+numbers=left,%
+numberstyle=\tiny,%
+numbersep=5pt,%
+breaklines=true,%
+morekeywords={pWezel,Wezel,string,ref,params_result,string},%
+escapeinside={(*@}{@*)},%
+%basicstyle=\footnotesize,%
+%keywords={double,int,for,if,return,vector,matrix,void,public,class,string,%
+%float,sizeof,char,FILE,while,do,const}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% mala zmiana sposobu wyswietlania notek bocznych
+\let\oldmarginpar\marginpar
+\renewcommand\marginpar[1]{%
+  {\linespread{0.85}\normalfont\scriptsize%
+%   \oldmarginpar[\vspace{-1.5ex}\raggedleft\scriptsize\color{black}\textsf{#1}]%    left pages
+%                {\vspace{-1.5ex}\raggedright\scriptsize\color{black}\textsf{#1}}% right pades
+\oldmarginpar[\hspace{1cm}\begin{minipage}{3cm}\raggedleft\scriptsize\color{black}\textsf{#1}\end{minipage}]%    left pages
+{\hspace{0cm}\begin{minipage}{3cm}\raggedright\scriptsize\color{black}\textsf{#1}\end{minipage}}% right pages
+}%
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+\begin{document}
+\frenchspacing
+\thispagestyle{empty}
+\begin{center}
+{\Large\sf Politechnika Œl¹ska w Gliwicach   % Alma Mater
+
+Wydzia³ Automatyki, Elektroniki i Informatyki
+
+}
+
+\vfill
+
+\includegraphics[width=0.15\textwidth]{polsl.pdf}
+
+\vfill\vfill
+
+{\Huge\sffamily\bfseries Podstawy Programowania Komputerów} \\ % tu podaæ nazwê przedmiotu
+
+\vfill\vfill
+
+{\LARGE\sf Loty}  % a tu temat laborki :-)
+
+
+\vfill \vfill\vfill\vfill
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{tabular}{ll}
+\toprule
+	autor                                                  & Mateusz Piwowarski          \\
+	prowadz¹cy                                             & dr in¿. Krzysztof Simiñski       \\
+	rok akademicki                                         & 2017/2018 \\
+	kierunek                                               & informatyka                 \\
+	rodzaj studiów                                         & SSI                         \\
+	semestr                                                & 1                           \\
+	termin laboratorium / æwiczeñ                          & wtorek, 13:45 -- 15:15      \\
+	grupa                                                  & 3                           \\
+	sekcja                                                 & 7                           \\
+	termin oddania sprawozdania                            & \the\year-01-25             \\
+	data oddania sprawozdania                              & \the\year-01-25             \\
+\bottomrule &  \\
+\end{tabular}
+
+\end{center}
+%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Treœæ zadania}
+	Korzystaj¹c z dynamicznych struktur danych napisaæ program, który przygotowuje listy pasa¿erów. Pasa¿erowie mog¹ rezerwowaæ bilety na ró¿ne loty w ró¿nych biurach i przez internet. Wszystkie rezerwacje s¹ zapisywane w biurze centralnym. Maj¹ one nastêpuj¹c¹ postaæ: \newline \newline
+  {\small\sf 
+ (symbol lotu) (lotnisko startowe) (data lotu) (nazwisko pasa¿era) (nr miejsca)
+} \newline \newline
+ Przyk³adowy plik z rezerwacjami:
+\newline
+\texttt{KR54R Katowice 2011-12-13 Jaworek 33} \newline
+\texttt{TY340 London 2012-02-03 Hastings 2} \newline 
+\texttt{TY340 London 2012-02-03 Poirot 23} \newline 
+\texttt{KR54R Katowice 2011-12-13 Matianek 02} \newline
+\texttt{TY340 London 2012-02-03 Holmes 11} \newline 
+\texttt{KR54R Katowice 2011-12-13 Lopez 12} \newline
+\texttt{TY340 London 2012-02-03 Lemon 43} \newline 
+\texttt{KR54R Katowice 2011-12-13 Chavez 43} \newline
+
+Na podstawie pliku z rezerwacjami nale¿y stworzyæ plik z list¹ pasa¿erów dla ka¿dego lotu. Ka¿da lista jest tworzona w odrêbnym pliku. Nazw¹ pliku jest symbol lotu. W pliku umieszczona jest nazwa lotniska i data. W kolejnych liniach umieszczone s¹ numery siedzeñ i nazwiska pasa¿erów, posortowane wg numerów.Dla powy¿szego pliku zostan¹ utworzone pliki:  \texttt{KR54R.txt} i 
+\texttt{TY340.txt}. \newline
+Plik \texttt{KR54R.txt}: \newline \newline
+\texttt{symbol lotu:  KR54R} \newline
+\texttt{lotnisko:  \hspace{0.46cm}  Katowice} \newline
+\texttt{data lotu:  \hspace{0.23cm}  2011-12-13} \newline
+\newline
+\texttt{lista pasazerow:} \newline
+\texttt{02 Matianek} \newline
+\texttt{11 Lopez} \newline
+\texttt{33 Jaworek} \newline
+\texttt{43 Chavez} \newline
+
+\texttt{liczba rezerwacji: 4}. \newline \newline
+Program uruchamiany jest z linii poleceñ z wykorzystaniem nastêpuj¹cego prze³¹cznika: \texttt{-i plik wejsciowy z rezerwacjami}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analiza zadania}
+
+Zagadnienie przedstawia problem sortowania lotów z pliku wejœciowego oraz przydzielanie do odpowiednich lotów pasa¿erów w sposób posortowany wed³ug miejsc.
+
+\subsection{Struktury danych}
+
+W programie wykorzystano dwie listy jednokierunkowe. Lista nadrzêdna przechowuje informacje o: identyfikatorze lotu, lotnisku startowym oraz o dacie lotu. Lista nadrzêdna posiada wskaŸnik na listê podrzêdn¹, która przechowuje nazwiska pasa¿erów oraz ich miejsca. Lista podrzêdna jest posortowana wed³ug miejsc pasa¿erów rosn¹co. Takie struktury danych umo¿liwiaj¹ ³atwe sortowanie.
+
+\subsection{Algorytmy}
+
+Program pobiera z pliku wejœciowego symbol lotu, lotnisko startowe oraz datê lotu, przeszukuj¹c czy lot o podanych parametrach istnieje. Je¿eli istnieje, program do³¹cza pasa¿era do listy pasa¿erów dla konkretnego lotu. Je¿eli lot, który pobra³ program nie znajduje siê w liœcie lotów, program dodaje lot na sam koniec w sposób rekurencyjny.  
+
+\section{Specyfikacja zewnêtrzna}
+
+Program jest uruchamiany z linii poleceñ. Przy wywo³ywaniu programu mo¿liwe jest u¿ycie prze³¹czników  \texttt{-i} oraz  \texttt{-h}.
+Po wykorzystaniu prze³¹cznika  \texttt{-i} nale¿y przekazaæ do programu nazwê wejœciowego. Wykorzystanie prze³¹cznika  \texttt{-h} wyœwietla instrukcje dla u¿ytkownika obs³ugi programu. Instrukcja równie¿ jest wyœwietlania w wyniku podania niepoprawnych danych. Prze³¹czniki mog¹ byæ podane w dowolnej kolejnoœci. 
+\newline
+Przyk³adowe wywo³ania programu:
+\begin{verbatim}
+./main -i ../dat/rezerwacje.txt
+./main -h
+\end{verbatim}
+
+Program zapisuje spis pasa¿erów w pliku tekstowym w folderze zewnêtrznym \texttt{dat}. Plik tekstowy dla ka¿dego lotu jest nazwany symbolem lotu.
+Pliki wejœciowe mog¹ mieæ dowolne rozszerzenie (lub go nie mieæ.).
+\newline \newline \newline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Nieprawid³owe wykorzsytanie prze³¹czników powoduje wyœwietlenie komunikatu: 
+\begin{verbatim}
+Niepoprawne wywolanie programu.
+\end{verbatim}
+Je¿eli u¿ytkownik nie poda pliku wejœciowego otrzyma komunikat: 
+\begin{verbatim}
+Nie podano nazwy pliku wejscia.
+\end{verbatim}
+Nieprawid³owe dane w pliku wejœcia powoduj¹ wyœwietlenie komunikatu:
+\begin{verbatim}
+Niepoprawne dane w pliku wejsciowym.
+\end{verbatim}
+Je¿eli podany plik przez u¿ytkownika nie istnieje, program wyœwietli komunikat:
+\begin{verbatim}
+Plik o podanej nazwie nie istnieje. 
+\end{verbatim}
+
+\section{Specyfikacja wewnêtrzna}\label{sec:sp-wew}
+Program zosta³ zrealizowany zgodnie z paradygmatem strukturalnym.  
+W programie rozdzielono interfejs (komunikacjê z u¿ytkownikiem) od logiki aplikacji (sortowaniem pasa¿erów oraz lotów).
+
+\subsection{Typy zdefiniowane w programie}
+W programie zdefiniowano nastêpuj¹cy typ:
+\begin{lstlisting}
+struct osoba 
+{
+	string nazwisko;
+	int miejsce;
+	osoba * pNext;
+};
+\end{lstlisting}
+Powy¿sza struktura jest list¹ jednokierunkow¹, która zawiera pasa¿erów ( ka¿dy z nich posiada swoje nazwisko oraz nr miejsca). Struktura przechowuje pasa¿erów posortowanych wed³ug nr miejsca, rosn¹co. \newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Zdefiniowano tak¿e strukturê:
+
+\begin{lstlisting}
+struct loty
+{
+	string symbollotu;
+	string miasto;
+	string data;
+	osoba * pPasazerowie;
+	loty * pNext;
+};
+\end{lstlisting}
+Struktura loty jest równie¿ list¹ jednokierunkow¹. Przechowuje loty: ka¿dy z lotów ma symbol lotu, lotnisko startowe, datê lotu oraz wskaŸnik na listê pasa¿erów. \newline 
+
+Zdefiniowano tak¿e typ:
+
+\begin{lstlisting}
+bool poprawnedane = true;
+\end{lstlisting}
+Typ ten s³u¿y do przechowania informacji czy dane w pliku wejœcia s¹ poprawne. 
+Domyœlnie posiada wartoœæ \lstinline|True|. Gdy program natrafi na niezgodnoœæ w pliku wejœciowym, zmienia wartoœæ zmiennej poprawnedane na \lstinline|False|. \newline
+
+Wykorzystano równie¿ typ klasy \lstinline|string|, który przechowuje nazwê pliku wejœcia podan¹ przez u¿ytkownika:
+
+\begin{lstlisting}
+string wejscie = "";
+\end{lstlisting}
+
+\subsection{Ogólna struktura programu}
+
+W funkcji g³ównej wywo³ana jest funkcja 
+\begin{lstlisting}
+bool Odczytajargumenty(int ile, char ** argumenty, string & szInput);
+\end{lstlisting}
+Funkcja sprawdza prze³¹czniki wykorzystane przez u¿ytkownika w wywo³aniu programu. Je¿eli program zosta³ poprawnie wywo³any, program przechodzi do funkcji:
+\begin{lstlisting}
+bool Sprawdzplik(const string & wejscie, bool & poprawnedane)
+\end{lstlisting}
+Plik który poda³ u¿ytkownik, zostaje sprawdzany przez program. Je¿eli w pliku znajduj¹ siê niepoprawne dane lub plik nie istnieje/ nie posiadamy do niego dostêpu, program koñczy pracê wywo³uj¹c funkcjê:
+
+\begin{lstlisting}
+void Pomoc();
+\end{lstlisting}
+Funkcja wyœwietla instrukcjê korzystania z programu. \newline
+
+Je¿eli u¿ytkownik poda³ plik wejœcia, w którym znajduj¹ siê poprawne dane, program wywo³uje funkcjê: 
+\begin{lstlisting}
+bool pobieranieDanych(const string & wejscie, loty *& pHead);
+\end{lstlisting}
+Funkcja pobiera listê pasa¿erów wraz z ich numerami miejsc, dat¹ lotu, lotniskiem startowym i symbolem lotu. Pobieraj¹c dane z pliku, program przydziela pasa¿erów do konkretnych lotów, na które posiadaj¹ rezerwacje.
+Po podziale ka¿dego pasa¿era do swojego lotu, program wywo³uje funkcjê:
+\begin{lstlisting}
+void Wynik(loty * pHead);
+\end{lstlisting}
+Funkcja dla ka¿dego lotu tworzy osobny plik tekstowy, zapisuj¹c w nim listê pasa¿erów. \newline
+Na koniec program usuwa wszystkie wskaŸniki oraz elementy list u¿ytych w programie, aby unikn¹æ wycieków pamiêci. W tym celu uruchamia funkcjê
+\begin{lstlisting}
+void usunWszystko(loty *& pHead);
+\end{lstlisting}
+Po zakoñczeniu usuwania, program koñczy swoj¹ pracê.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Szczegó³owy opis implementacji funkcji}
+
+\begin{lstlisting}
+bool Odczytajargumenty(int ile, char ** argumenty, string & szInput);
+\end{lstlisting}
+Funkcja sprawdza, czy program zosta³ wywo³any wraz z u¿yciem prze³¹czników \texttt{-i}, \texttt{-h}. Funkcja zwraca informacje czy u¿ytkownik wykorzysta³ prze³¹czniki w poprawny sposób. W przypadku b³êdu zwraca wartoœæ \lstinline|False|. Je¿eli prze³¹cznik \texttt{-i} zosta³ prawid³owo wykorzystany , funkcja w zmiennej \lstinline|szInput| przechowa nazwê pliku wejœcia. Parametr \lstinline|ile| przechowuje informacjê ile argumentów wykorzystaliœmy wywo³uj¹c funkcjê.  \newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Gdy program zosta³ wywo³any z u¿yciem parametru \texttt{-h} Funkcja wywo³uje funkcjê:
+
+\begin{lstlisting}
+void Pomoc();
+\end{lstlisting} 
+Funkcja ta wyœwietla instrukcjê korzystania z programu.
+
+Nastêpnie sprawdzana jest wartoœæ zwracana funkcji: 
+\begin{lstlisting}
+bool Sprawdzplik(const string & wejscie, bool & poprawnedane)
+\end{lstlisting}
+Funkcja po otrzymaniu nazwy pliku wejscia, otwiera plik wejscia i sprawdza czy dane w pliku s¹ poprawne. Zwraca wartoœæ \lstinline|False| je¿eli w pliku znajduj¹ siê niepoprawne dane.
+Sprawdzana jest ka¿da linia pliku wywo³uj¹c funkcjê:
+
+\begin{lstlisting}
+void Sprawdzlinie(const string & linia, bool & poprawnedane)
+\end{lstlisting} 
+
+Funkcja pobiera liniê pliku oraz sprawdza jej poprawnoœæ wywo³uj¹c funkcje:
+
+\begin{lstlisting}
+void Sprawdzsymbol(const string & linia, bool & poprawnedane, int & i);
+void Sprawdzmiasto(const string & linia, bool & poprawnedane, int & i);
+void Sprawdzdate(const string & linia, bool & poprawnedane, int & i);
+void Sprawdznazwisko(const string & linia, bool & poprawnedane, int & i);
+void Sprawdzmiejsce(const string & linia, bool & poprawnedane, int & i);
+\end{lstlisting} 
+Powy¿sze funkcje sprawdzaj¹ poprawnoœæ ca³ej linii pliku. Jako parametry przyjmuj¹ liniê pliku, wartoœæ poprawnoœci dancyh i informacjê, który znak linii jest obecnie sprawdzany. Je¿eli program natrafi na niepoprawnoœæ, zmienna \lstinline|poprawnedane| przyjmuje wartoœæ \lstinline|False|. Program wy³apuje niepoprawnoœæ gdy: \newline
+- Symbol lotu zawiera ma³e litery \newline
+- Nazwa miasto odlotu zawiera cyfry \newline
+- Data posiada litery (a-z) \newline
+- Nazwisko pasa¿era posiada cyfry \newline
+- Nr miejsca posiada litery (a-z) \newline \newline
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Je¿eli program nie natrafi na niepoprawnoœæ danych, przejdzie do funkcji 
+
+\begin{lstlisting}
+bool pobieranieDanych(const string & wejscie, loty *& pHead);
+\end{lstlisting} 
+
+Funkcja przyjmuje jako parametry nazwê pliku wejœcia, oraz wkaŸnik na pierwszy element listy lotów. Zwraca wartoœæ \lstinline|False| je¿eli programowi nie uda³o siê dostaæ do pliku lub plik nie istnieje.
+Funkcja pobiera po kolei: Symbol lotu, lotnisko startowe, datê lotu, nazwisko pasa¿era oraz numer miejsca. Przechowuj¹c powy¿sze dane w zmiennych, wywo³uje funkcjê 
+
+\begin{lstlisting}
+loty * znajdzLot(loty *& pHead, const string & symbol, const string & miasto, const string & data);
+\end{lstlisting} 
+
+Funkcja przyjmuje wkaŸnik na pierwszy lot w liœcie lotów, symbol lotu, miasto oraz datê, która by³a pobrana z pliku. Funkcja sprawdza listê lotów, porównuj¹c parametry lotów do parametrów danych, które pobraliœmy z pliku. Je¿eli lot pobrany istnieje, funkcja zwraca jego adres. Je¿eli w ca³ej liœcie lotów nie ma lotu pobranego z pliku, funkcja dodaje pobrany lot na koniec listy oraz zwraca jego adres. \newline
+Program przechodzi do funkcji:
+
+\begin{lstlisting}
+void dodajPasazeraDoLotu(osoba *& pHead, const string & nazwisko, int miejsce);
+\end{lstlisting} 
+Funkcja wykorzystuje wczeœniej zwrócony adres lotu. Znaj¹c adres lotu, program dodaje pasa¿era do lotu w sposób posortowany, wed³ug miejsc rosn¹co.
+\newline
+
+Po pobraniu i posortowaniu przez program wszystkich pasa¿erów z pliku wejœciowego, program przechodzi do fukcji:
+
+\begin{lstlisting}
+void Wynik(loty * pHead);
+\end{lstlisting} 
+Funkcja tworzy pliki nazywaj¹c je symbolami lotu. Ka¿dy plik lotu posiada swój symbol lotu, lotnisko, datê lotu, listê pasa¿erów oraz liczbê rezerwacji.
+Dla ka¿dego lotu, listê pasa¿erów zapisuje funkcja: 
+\begin{lstlisting}
+void zapiszOsobe(osoba * pHead, ofstream & plik);
+\end{lstlisting} 
+Istnieje równie¿ funkcja, która zwraca liczbê pasa¿erów i zapisuje wynik w pliku.
+\begin{lstlisting}
+int liczbaPasazerow(osoba * pHead);
+\end{lstlisting}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+Aby unkikn¹æ jakichkolwiek wycieków pamiêci, przed zakoñczeniem program usuwa wszystkie wczeœniej wykorzystywane wskaŸniki.
+\begin{lstlisting}
+void usunWszystko(loty *& pHead);
+\end{lstlisting}
+Aby wszystko wykona³o siê w prawid³owej kolejnoœci, najpierw zostaj¹ usuniête wskaŸniki na pasa¿erów, nastêpnie wskaŸniki na loty. Dlatego te¿ powy¿sza funkcja wywo³uje funkcjê usuwaj¹c¹ wskaŸniki na pasa¿erów.
+
+\begin{lstlisting}
+void usunListe(osoba *& pHead);
+\end{lstlisting}
+
+\section{Testowanie}
+Program zosta³ przetestowany na ró¿nego rodzaju plikach. Pliki niepoprawne: \texttt{zlysymbol.txt}, \texttt{zlemiasto.txt}, \texttt{zladata.txt},   \texttt{zlenazwisko.txt}, \texttt{zlemiejsce.txt} powoduj¹ zg³oszenie b³êdu.
+Ka¿dy z wymienionych wy¿ej plików posiada³ po jednej nieprawid³owoœci w zapisie: symbolu lotu, lotniska startowego, daty lotu, nazwiska pasa¿era, numeru miejsca. 
+Program wywo³any dla pustego pliku tworzy plik lotu bez danych.
+
+Pliki, w którym znajduj¹ siê dodatkowe znaki bia³e miêdzy wartoœciami nie powoduj¹ zg³oszenia b³êdu przez program.\newline Poprawnoœæ dzia³ania programu zosta³a sprawdzona na pliku \texttt{rezerwacje.txt}. \newline
+Program zosta³ sprawdzony pod k¹tem wycieków pamiêci tak aby nie dopuœciæ do ani jednego wycieku. 
+
+
+
+\section{Wnioski}
+
+Program Loty jest programem prostym, chocia¿ wymaga³ umiejêtnego pos³ugiwania siê listami jednokierunkowymi. Najbardziej wymagaj¹ce okaza³o siê zapobieganie przed wyciekami pamiêci. Realizacja projektu nauczy³a obs³ugiwaæ siê wskaŸnikami oraz listami jednokierunkowymi, które maj¹ wskaŸniki na inne listy. 
+
+
+
+%\begin{figure}[t]
+%\centering
+%\includegraphics{graf/rysunek.1}
+%\caption{Opis rysunku znajduje siê pod nim.}
+%\label{fig:rysunek}
+%\end{figure}
+
+\end{document}
+% Koniec wieñczy dzie³o.

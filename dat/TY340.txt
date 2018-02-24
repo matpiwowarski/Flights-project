@@ -1,0 +1,13 @@
+
+ symbol lotu:    TY340
+ lotnisko:       London
+ data lotu:      2012-02-03
+
+ lista pasazerow: 
+  2 Hastings
+ 11 Holmes
+ 11 Watson
+ 23 Poirot
+ 43 Lemon
+
+ liczba rezerwacji: 5

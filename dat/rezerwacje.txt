@@ -1,0 +1,13 @@
+KR54R	Katowice	2011-12-13	Jaworek		33
+TY340	London		2012-02-03	Hastings 	02
+TY340	London		2012-02-03	Poirot		23
+KR54R	Katowice	2011-12-13	Matianek	02
+TY340	London		2012-02-03	Holmes		11
+TY340	London		2012-02-03	Watson		11
+LV16S	Liverpool	2018-09-11	Nowakowski	11
+KR54R	Katowice	2011-12-13	Lopez		12
+TY340	London		2012-02-03	Lemon		43
+KR54R	Katowice	2011-12-13	Chavez		43
+LV16S	Liverpool	2018-09-11	Salah		01
+PA11V	Paris		2014-05-22	Jonson		10
+LV16S	Liverpool	2018-09-11	Glatki		05

@@ -1,0 +1,12 @@
+
+ symbol lotu:    KR54R
+ lotnisko:       Katowice
+ data lotu:      2011-12-13
+
+ lista pasazerow: 
+  2 Matianek
+ 12 Lopez
+ 33 Jaworek
+ 43 Chavez
+
+ liczba rezerwacji: 4
